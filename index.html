@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+
+  <style>
+    .font-montserrat {
+      font-family: 'Montserrat', sans-serif;
+    }
+  </style>
+</head>
+
+<body class="font-montserrat">
+
+<div class="header">
+    <h1>Find your image</h1>
+    <button id="show-favorites">Favorites</button>
+    <button id="back-to-search" style="display:none;">Back</button>
+</div>
+
+
+<form id="search-form">
+    <input type="text" id="search-input" placeholder="Write your pic name">
+    <button type="submit" id="search-btn">Submit</button>
+  </form>
+
+<div id="gallery"></div>
+
+<div id="pagination">
+    <button id="prev-page">Prev</button>
+    <span id="page-info"></span>
+    <button id="next-page">Next</button>
+</div>
+
+  <div id="loader" style="display:none;">Loading...</div>
+
+  <div id="modal" style="display:none;">
+    <div id="modal-content"></div>
+    <button id="modal-close">X</button>
+  </div>
+
+  <script type="module" src="main.js"></script>
+
+</body>
+</html>
