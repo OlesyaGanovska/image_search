@@ -1,4 +1,5 @@
-const API_KEY = '51230625-b5d3acd506da8d3a8e799dfc5'; 
+const API_KEY = '51230625-b5d3acd506da8d3a8e799dfc5';
+
 const gallery = document.getElementById('gallery');
 const searchInput = document.getElementById('search-input');
 const searchBtn = document.getElementById('search-btn');
@@ -11,6 +12,8 @@ const pageInfo = document.getElementById('page-info');
 const modal = document.getElementById('modal');
 const modalContent = document.getElementById('modal-content');
 const modalClose = document.getElementById('modal-close');
+
+const loader = document.getElementById('loader');
 
 let favorites = [];
 let query = '';
@@ -26,6 +29,8 @@ searchBtn.addEventListener('click', function (e) {
 });
 
 function fetchImages(query, page) {
+  showLoader();
+
   const URL = `https://pixabay.com/api/?key=${API_KEY}&q=${encodeURIComponent(query)}&image_type=photo&per_page=12&page=${page}`;
 
   gallery.innerHTML = '';
@@ -60,6 +65,9 @@ function fetchImages(query, page) {
       prevPageBtn.style.display = 'inline';
       nextPageBtn.style.display = 'inline';
       pageInfo.style.display = 'inline';
+    })
+    .finally(() => {
+      hideLoader();
     });
 }
 
@@ -126,16 +134,23 @@ nextPageBtn.addEventListener('click', function () {
 
 function openModal(image) {
   modalContent.innerHTML = `
-    <img src="${image.largeImageURL}" alt="${image.tags}" style="max-width: 90%; max-height: 80vh;">
+    <button id="modal-close">X</button>
+    <img src="${image.largeImageURL}" alt="${image.tags}" />
     <p>Author: ${image.user}</p>
     <p>Tags: ${image.tags}</p>
     <p>Likes: ${image.likes}</p>
     <p>Downloads: ${image.downloads}</p>
   `;
-  modal.style.display = 'block';
-}
 
-modalClose.addEventListener('click', () => {
+  const closeBtn = document.getElementById('modal-close');
+  closeBtn.addEventListener('click', function() {
+    modal.style.display = 'none';
+  });
+
+  modal.style.display = 'flex';
+};
+
+document.getElementById('modal-close').addEventListener('click', function() {
   modal.style.display = 'none';
 });
 
@@ -150,3 +165,11 @@ document.addEventListener('keydown', (e) => {
     modal.style.display = 'none';
   }
 });
+
+function showLoader() {
+  loader.style.display = 'block';
+}
+
+function hideLoader() {
+  loader.style.display = 'none';
+}
